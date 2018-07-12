@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>todo task</title>
+    <script src="../script/angular.js"></script>
+    <script src="../script/navmodule.js"></script>
+    <script src="../script/navctrl.js"></script>
+    <script src="../script/todoctrl.js"></script>
+    <script src="../script/datectrl.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
+    <style>
+        .active{
+            background-color: green;
+            display:block;
+
+        }
+        .bdy{
+            margin-top: 0px;
+            background-color: lightgray;
+        }
+        li{
+            list-style: none;
+        }
+        .striketrue{
+            text-decoration: line-through;
+        }
+        .before{
+            margin-top:-1px;
+            margin-right:5px;
+            border-radius:80%;
+            border: 5px solid transparent;
+            opacity: 0.8;
+        }
+        .after{
+            margin-top:-1px;
+            margin-right:5px;
+            border-radius:80%;
+            border: 5px solid transparent;
+            opacity: 0.8;
+        }
+        .editbox{
+            border: none;
+            border-color: lightgray;
+            outline-color: lightgray;
+            outline: none;
+        }
+        .change{
+            opacity: 0;
+        }
+        .dli:hover .change{
+            opacity: 1;
+        }
+        .remove{
+            opacity: 0;
+        }
+        .dli:hover .remove{
+            opacity: 1;
+        }
+
+
+    </style>
+</head>
+
+<body ng-app="mytodo" class="bdy">
+
+<div  ng-style="mainnav" ng-controller="navCtrl">
+    <div style="overflow:auto">
+        <div ng-style="style">
+            <a href="" ng-style="mytask" class="active">MY TASK</a>
+            <a href="" ng-style="focus">FOCUS MODE</a>
+            <a href="" ng-style="history">HISTORY</a>
+            <a href="" ng-style="settings">SETTINGS</a>
+            <a href="" ng-style="login">LOG IN</a>
+        </div>
+    </div>
+</div><br><br>
+<center>
+    <table ng-controller="dateCtrl">
+        <td><img src="left.jpg" width="40px" height="40px" class="before" ng-click="previous()"></td>
+        <td><h3>{{today}}</h3></td>
+        <td><img src="right.jpg" width="40px" height="40px" class="after" ng-click="next()"></td>
+    </table>
+</center>
+<br><br>
+<div ng-style="box" ng-controller="taskCtrl">
+<div ng-style="maintodo" >
+    <h3>what are your five most important items to do today?</h3>
+    <ul>
+        <li ng-style="dli" ng-repeat="todotask in todolist" class="dli">
+            <input type="checkbox" ng-model="mark">
+            <span class="strike{{mark}}" ng-show="i[$index]">{{todotask.text}}</span>
+            <input type="text" ng-model="todotask.text" ng-hide="i[$index]" ng-keydown="taskshow($index)" class="editbox">
+            <img src="edit.jpg.jpg" ng-style="edits" ng-click="editorEnabled($index)" class="change">
+            <img src="dele.jpg.jpg" ng-style="dlt" class="remove" ng-click="remove()">
+        </li>
+    </ul>
+    <input ng-keydown="addTask($event)" ng-style="mytext" ng-model="todoText"  type="text" id="mytext" placeholder="only five more tasks are allowed" autofocus="autofocus">
+</div>
+</div>
+</body>
+</html>
